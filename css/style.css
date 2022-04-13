@@ -112,3 +112,96 @@ main {
 .progress-bar {
     background-color: #283558;
 }
+
+@media screen and (max-width: 360px) {
+    .wrapper {
+        display: block;
+    }
+
+    .nav-header {
+        margin: 12px;
+        display: none;
+    }
+
+    nav {
+        height: 66px;
+        flex-direction: row;
+        width: 100%;
+        font-size: 1.2em;
+    }
+
+    .nav-list {
+        width: 300px;
+        overflow: scroll;
+        overflow-scrolling: auto;
+    }
+
+    .nav-list li {
+        display: inline;
+        width: unset;
+        margin: 0;
+        margin-left: 24px;
+    }
+
+    .nav-item-active {
+        border: unset;
+    }
+
+    #content-card {
+        width: 300px;
+    }
+
+    .trophy-image {
+        height: 100px;
+    }
+}
+
+@media screen and (min-width: 360px) and (max-width: 700px) {
+
+    .wrapper {
+        display: block;
+    }
+
+    .nav-header {
+        margin: 12px;
+    }
+
+    nav {
+        height: unset;
+        flex-direction: row;
+        width: 100%;
+        font-size: 1.2em;
+    }
+
+    .nav-list {
+        width: 210px;
+        overflow: scroll;
+        overflow-scrolling: auto;
+    }
+
+    .nav-list li {
+        display: inline;
+        width: unset;
+        margin: 0;
+        margin-left: 24px;
+    }
+
+    .nav-item-active {
+        border: unset;
+    }
+
+    #content-card {
+        width: 360px;
+    }
+
+    .trophy-image {
+        height: 250px;
+    }
+
+}
+
+@media screen and (min-width: 700px) and (max-width: 900px) {
+    #content-card {
+        width: 500px;
+    }
+}

@@ -30,5 +30,5 @@ let questionPool = [
                 "a": 3
             },
         ]
-    },
+    }
 ];
