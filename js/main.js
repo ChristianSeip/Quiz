@@ -25,6 +25,7 @@ function init() {
  */
 function showIntro(category = 0) {
     resetGame();
+    game.category = category;
     document.getElementById('content-card').innerHTML = `
         <div class="card-body d-flex flex-column align-content-center justify-content-center">
             <h2 class="text-center">${questionPool[category]["intro"]}</h2>
