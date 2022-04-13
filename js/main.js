@@ -1,0 +1,123 @@
+let game = {
+    "category": null,
+    "question": null,
+    "points": null,
+};
+
+function init() {
+    let urlParams = new URLSearchParams(window.location.search);
+    let myParam = urlParams.get('quiz');
+
+    if(myParam === "" || myParam === null) {
+        myParam = 0;
+    }
+
+    showIntro(myParam);
+}
+
+function showIntro(category = 0) {
+    document.getElementById('content-card').innerHTML = `
+        <div class="card-body d-flex flex-column align-content-center justify-content-center">
+            <h2 class="text-center">${questionPool[category]["intro"]}</h2>
+            <p class="card-text text-center fs-4">Ready for the Challenge?</p>
+        </div>
+        <div class="d-flex justify-content-end m-4">
+            <button class="btn btn-orange" onclick="newGame(${category})">START NOW ></button>
+        </div>
+    `;
+}
+
+function newGame(category) {
+    game.category = category;
+    game.question = 0;
+    game.points = 0;
+    showQuestion();
+}
+
+function showQuestion() {
+    let content = `
+        <div class="card-body d-flex flex-column align-content-center justify-content-center">
+        <p class="text-center fs-3 fw-bolder">${questionPool[game.category]["questions"][game.question]["question"]}</p>
+    `;
+
+    questionPool[game.category]["questions"][game.question]["options"].forEach(function (value, index) {
+        content += getQuestionOption(index, value);
+    });
+
+    content += `</div>`;
+
+    document.getElementById('content-card').innerHTML = content;
+}
+
+function getQuestionOption(index, text) {
+    return `
+        <div class="card answer-option" onclick="sendAnswer(${index})">
+            <div class="card-body">
+                <p class="card-text text-center">${text}</p>
+            </div>
+        </div>
+    `;
+}
+
+function sendAnswer(id) {
+    let el = document.getElementsByClassName('answer-option')[id];
+
+    if(id !== questionPool[game.category]["questions"][game.question]["a"]) {
+        el.classList.add("bg-danger");
+        el.classList.add("bg-gradient");
+        el.classList.add("text-light");
+    }
+    else {
+        game.points++;
+    }
+
+    showAnswer();
+    disableOptions();
+    window.setTimeout(nextQuestion, 2500);
+}
+
+function disableOptions() {
+    let el = document.getElementsByClassName('answer-option');
+
+    for(let i = 0; i < el.length; i++) {
+        el[i].removeAttribute("onclick");
+    }
+}
+
+function showAnswer() {
+    let el = document.getElementsByClassName('answer-option')[questionPool[game.category]["questions"][game.question]["a"]];
+    el.classList.add("bg-success");
+    el.classList.add("bg-gradient");
+    el.classList.add("text-light");
+}
+
+function nextQuestion() {
+    if(game.question + 1 >= questionPool[game.category]["questions"].length) {
+        showEndCard();
+        game = {
+            "category": null,
+            "question": null,
+            "points": null,
+        };
+    }
+    else {
+        game.question++;
+        showQuestion();
+    }
+}
+
+function showEndCard() {
+    document.getElementsByClassName("container")[0].innerHTML = `
+        <img class="end-card-trophy" src="/img/tropy.png">
+        <div class="card quiz-card">
+            <img src="/img/brain%20result.png" class="card-img-top" alt="Quiz Result Title Image">
+            <div id="quiz-body" class="card-body">
+                <h5 class="card-title text-center">QUIZ COMPLETE</h5>
+                <p class="card-text text-center fw-bold fs-4 mt-5"><span class="text-orange">YOUR SCORE</span> <span class="p-3">${game.points}/${questionPool[game.category]["questions"].length}</span></p>
+                <div class="text-center">
+                    <button class="btn btn-outline-primary mt-5" onclick="window.location.reload()">REPLAY</button>
+                </div>
+            </div>
+        </div>
+    `;
+}
