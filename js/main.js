@@ -73,7 +73,7 @@ function sendAnswer(id) {
 
     showAnswer();
     disableOptions();
-    window.setTimeout(nextQuestion, 2500);
+    window.setTimeout(nextQuestion, 1750);
 }
 
 function disableOptions() {
@@ -107,17 +107,15 @@ function nextQuestion() {
 }
 
 function showEndCard() {
-    document.getElementsByClassName("container")[0].innerHTML = `
-        <img class="end-card-trophy" src="/img/tropy.png">
-        <div class="card quiz-card">
-            <img src="/img/brain%20result.png" class="card-img-top" alt="Quiz Result Title Image">
-            <div id="quiz-body" class="card-body">
-                <h5 class="card-title text-center">QUIZ COMPLETE</h5>
-                <p class="card-text text-center fw-bold fs-4 mt-5"><span class="text-orange">YOUR SCORE</span> <span class="p-3">${game.points}/${questionPool[game.category]["questions"].length}</span></p>
-                <div class="text-center">
-                    <button class="btn btn-outline-primary mt-5" onclick="window.location.reload()">REPLAY</button>
-                </div>
-            </div>
+    document.getElementById('content-card').innerHTML = `
+        <img class="trophy-image" src="img/tropy.png">
+
+        <div class="card-body d-flex flex-column align-items-center justify-content-center fs-3">
+            <img class="game-over-image" src="img/brain%20result.png" alt="Quiz Completed">
+            <p class="text-center fw-bold"><b>Complete<br>${questionPool[game.category]["category"]} Quiz</b></p>
+            <p class="mt-3"><b><span class="text-orange">YOUR SCORE</span> <span class="p-3">${game.points}/${questionPool[game.category]["questions"].length}</span></b></p>
+            <button class="btn btn-primary mt-3 ps-5 pe-5">SHARE</button>
+            <button class="btn btn-outline-primary mt-3 ps-5 pe-5" onclick="window.location.reload()">REPLAY</button>
         </div>
     `;
 }

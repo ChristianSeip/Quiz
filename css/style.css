@@ -72,6 +72,10 @@ main {
     border-color: #FE4F0E;
 }
 
+.text-orange {
+    color: #FE4F0E;
+}
+
 #content-card {
     height: 100%;
     width: 700px;
@@ -82,4 +86,19 @@ main {
 
 .answer-option {
     margin-top: 24px;
+}
+
+.game-over-image {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}
+
+.trophy-image {
+    position: fixed;
+    top: 35%;
+    right: 0;
+    z-index: 1;
+    height: 300px;
+    object-fit: contain;
 }
