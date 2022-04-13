@@ -200,8 +200,8 @@ function showEndCard() {
             <img class="game-over-image" src="img/brain%20result.png" alt="Quiz Completed">
             <p class="text-center fw-bold"><b>Complete<br>${questionPool[game.category]["category"]} Quiz</b></p>
             <p class="mt-3"><b><span class="text-orange">YOUR SCORE</span> <span class="p-3">${game.points}/${questionPool[game.category]["questions"].length}</span></b></p>
-            <button class="btn btn-primary mt-3 ps-5 pe-5">SHARE</button>
-            <button class="btn btn-outline-primary mt-3 ps-5 pe-5" onclick="window.location.reload()">REPLAY</button>
+            <button class="btn btn-primary mt-3 ps-5 pe-5" onclick="alert('No function yet')">SHARE</button>
+            <button class="btn btn-outline-primary mt-3 ps-5 pe-5" onclick="showIntro(${game.category})">REPLAY</button>
         </div>
     `;
 }
@@ -220,6 +220,7 @@ function handleProgressBar() {
     div.classList.remove('visually-hidden');
     let progressBar = document.getElementsByClassName('progress-bar')[0];
     progressBar.ariaValueMax = questionPool[game.category]["questions"].length.toString();
-    progressBar.ariaValueNow = (game.question+1).toString();
-    progressBar.style.width = ((game.question+1 / questionPool[game.category]["questions"].length)*100).toString() + '%';
+    progressBar.ariaValueNow = parseInt((game.question+1)).toString();
+    let p = parseFloat(game.question+1) / parseFloat(questionPool[game.category]["questions"].length) * 100;
+    progressBar.style.width = p.toString() + '%';
 }
