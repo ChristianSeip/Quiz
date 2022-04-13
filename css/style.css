@@ -47,19 +47,24 @@ nav {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 
 .nav-list li {
+    color: #9097BA;
     margin-bottom: 24px;
+    width: 100%;
+    text-align: center;
 }
 
-.nav-list li a {
-    color: #9097BA;
-    text-decoration: none;
+.nav-list li:hover {
+    color: #E8E8FF;
+    cursor: pointer;
 }
 
 .nav-item-active {
-    color: #E8E8FF !important;
+    color: #FEFFFF !important;
+    border-left: #FEFFFF 2px solid;
 }
 
 main {
@@ -86,6 +91,7 @@ main {
 
 .answer-option {
     margin-top: 24px;
+    cursor: pointer;
 }
 
 .game-over-image {

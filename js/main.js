@@ -4,6 +4,9 @@ let game = {
     "points": null,
 };
 
+/**
+ * Init Application
+ */
 function init() {
     let urlParams = new URLSearchParams(window.location.search);
     let myParam = urlParams.get('quiz');
@@ -12,9 +15,14 @@ function init() {
         myParam = 0;
     }
 
-    showIntro(myParam);
+    showIntro(parseInt(myParam));
 }
 
+/**
+ * Set intro template on quiz start
+ *
+ * @param {int} category
+ */
 function showIntro(category = 0) {
     document.getElementById('content-card').innerHTML = `
         <div class="card-body d-flex flex-column align-content-center justify-content-center">
@@ -25,8 +33,42 @@ function showIntro(category = 0) {
             <button class="btn btn-orange" onclick="newGame(${category})">START NOW ></button>
         </div>
     `;
+    setNavigation();
 }
 
+/**
+ * Adds any game to navigation
+ */
+function setNavigation() {
+    let listItems = '';
+    questionPool.forEach((cat, index) => listItems += `<li onclick="newGame(${index})">${cat.category}</li>`);
+    document.getElementById('main-navigation').innerHTML = listItems;
+    setActiveNavItem();
+}
+
+/**
+ * Set active game as active navigation item
+ */
+function setActiveNavItem() {
+    let items = document.getElementById('main-navigation').children;
+    let cat = game.category === null ? 0 : game.category;
+
+    for(let i = 0; i < items.length; i++) {
+        if(i === cat) {
+            items[i].classList.add('nav-item-active');
+            items[i].removeAttribute('onclick');
+        }
+        else {
+            items[i].classList.remove('nav-item-active')
+        }
+    }
+}
+
+/**
+ * Start a new game
+ *
+ * @param {int} category
+ */
 function newGame(category) {
     game.category = category;
     game.question = 0;
@@ -34,21 +76,29 @@ function newGame(category) {
     showQuestion();
 }
 
+/**
+ * Display actual question template on card element
+ */
 function showQuestion() {
     let content = `
         <div class="card-body d-flex flex-column align-content-center justify-content-center">
         <p class="text-center fs-3 fw-bolder">${questionPool[game.category]["questions"][game.question]["question"]}</p>
     `;
 
-    questionPool[game.category]["questions"][game.question]["options"].forEach(function (value, index) {
-        content += getQuestionOption(index, value);
-    });
+    questionPool[game.category]["questions"][game.question]["options"].forEach((value, index) => content += getQuestionOption(index, value));
 
     content += `</div>`;
 
     document.getElementById('content-card').innerHTML = content;
 }
 
+/**
+ * Get answer option template
+ *
+ * @param {int} index
+ * @param {string} text
+ * @returns {string}
+ */
 function getQuestionOption(index, text) {
     return `
         <div class="card answer-option" onclick="sendAnswer(${index})">
@@ -59,6 +109,11 @@ function getQuestionOption(index, text) {
     `;
 }
 
+/**
+ * Send answer option by id
+ *
+ * @param {int} id
+ */
 function sendAnswer(id) {
     let el = document.getElementsByClassName('answer-option')[id];
 
@@ -76,6 +131,9 @@ function sendAnswer(id) {
     window.setTimeout(nextQuestion, 1750);
 }
 
+/**
+ * Remove onclick attribute from answer options
+ */
 function disableOptions() {
     let el = document.getElementsByClassName('answer-option');
 
@@ -84,6 +142,9 @@ function disableOptions() {
     }
 }
 
+/**
+ * Display the right answer
+ */
 function showAnswer() {
     let el = document.getElementsByClassName('answer-option')[questionPool[game.category]["questions"][game.question]["a"]];
     el.classList.add("bg-success");
@@ -91,6 +152,9 @@ function showAnswer() {
     el.classList.add("text-light");
 }
 
+/**
+ * Handle request for next question (show end cart and reset game, if there is no question left)
+ */
 function nextQuestion() {
     if(game.question + 1 >= questionPool[game.category]["questions"].length) {
         showEndCard();
@@ -106,6 +170,9 @@ function nextQuestion() {
     }
 }
 
+/**
+ * Show end card
+ */
 function showEndCard() {
     document.getElementById('content-card').innerHTML = `
         <img class="trophy-image" src="img/tropy.png">
