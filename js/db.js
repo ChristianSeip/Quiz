@@ -17,7 +17,7 @@ let questionPool = [
     },
     {
         "category": "HTML",
-        "intro": "Welcome to the<br>JavaScript Quiz!",
+        "intro": "Welcome to the<br>HTML Quiz!",
         "questions": [
             {
                 "question": "Frage 1",

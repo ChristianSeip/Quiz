@@ -24,6 +24,7 @@ function init() {
  * @param {int} category
  */
 function showIntro(category = 0) {
+    resetGame();
     document.getElementById('content-card').innerHTML = `
         <div class="card-body d-flex flex-column align-content-center justify-content-center">
             <h2 class="text-center">${questionPool[category]["intro"]}</h2>
@@ -41,7 +42,7 @@ function showIntro(category = 0) {
  */
 function setNavigation() {
     let listItems = '';
-    questionPool.forEach((cat, index) => listItems += `<li onclick="newGame(${index})">${cat.category}</li>`);
+    questionPool.forEach((cat, index) => listItems += `<li onclick="showIntro(${index})">${cat.category}</li>`);
     document.getElementById('main-navigation').innerHTML = listItems;
     setActiveNavItem();
 }
@@ -74,6 +75,16 @@ function newGame(category) {
     game.question = 0;
     game.points = 0;
     showQuestion();
+}
+
+/**
+ * Reset Game objecz
+ */
+function resetGame() {
+    game.category = null;
+    game.question = null;
+    game.points = null;
+    handleProgressBar();
 }
 
 /**
