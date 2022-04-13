@@ -4,6 +4,9 @@ let game = {
     "points": null,
 };
 
+let success_sound = new Audio('/sounds/correct.mp3');
+let wrong_sound = new Audio('/sounds/wrong.mp3');
+
 /**
  * Init Application
  */
@@ -134,8 +137,10 @@ function sendAnswer(id) {
         el.classList.add("bg-danger");
         el.classList.add("bg-gradient");
         el.classList.add("text-light");
+        wrong_sound.play();
     }
     else {
+        success_sound.play();
         game.points++;
     }
 
