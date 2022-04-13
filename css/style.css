@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-    height: 100vh;
+    height: 95vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,4 +107,8 @@ main {
     z-index: 1;
     height: 300px;
     object-fit: contain;
+}
+
+.progress-bar {
+    background-color: #283558;
 }

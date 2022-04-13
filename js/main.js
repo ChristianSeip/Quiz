@@ -80,6 +80,7 @@ function newGame(category) {
  * Display actual question template on card element
  */
 function showQuestion() {
+    handleProgressBar();
     let content = `
         <div class="card-body d-flex flex-column align-content-center justify-content-center">
         <p class="text-center fs-3 fw-bolder">${questionPool[game.category]["questions"][game.question]["question"]}</p>
@@ -163,6 +164,7 @@ function nextQuestion() {
             "question": null,
             "points": null,
         };
+        handleProgressBar();
     }
     else {
         game.question++;
@@ -185,4 +187,22 @@ function showEndCard() {
             <button class="btn btn-outline-primary mt-3 ps-5 pe-5" onclick="window.location.reload()">REPLAY</button>
         </div>
     `;
+}
+
+/**
+ * Handle game progress bar
+ */
+function handleProgressBar() {
+    let div = document.getElementById('quiz-progress');
+
+    if(game.question === null) {
+        div.classList.add('visually-hidden');
+        return;
+    }
+
+    div.classList.remove('visually-hidden');
+    let progressBar = document.getElementsByClassName('progress-bar')[0];
+    progressBar.ariaValueMax = questionPool[game.category]["questions"].length.toString();
+    progressBar.ariaValueNow = (game.question+1).toString();
+    progressBar.style.width = ((game.question+1 / questionPool[game.category]["questions"].length)*100).toString() + '%';
 }
