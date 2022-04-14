@@ -4,8 +4,8 @@ let game = {
     "points": null,
 };
 
-let success_sound = new Audio('/sounds/correct.mp3');
-let wrong_sound = new Audio('/sounds/wrong.mp3');
+let success_sound = new Audio('./sounds/correct.mp3');
+let wrong_sound = new Audio('./sounds/wrong.mp3');
 
 /**
  * Init Application
@@ -194,7 +194,7 @@ function nextQuestion() {
  */
 function showEndCard() {
     document.getElementById('content-card').innerHTML = `
-        <img class="trophy-image" src="img/tropy.png">
+        <img class="trophy-image" src="img/tropy.png" alt="Trophy Image">
 
         <div class="card-body d-flex flex-column align-items-center justify-content-center fs-3">
             <img class="game-over-image" src="img/brain%20result.png" alt="Quiz Completed">
